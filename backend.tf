@@ -5,7 +5,7 @@
 terraform {
   backend "s3" {
     bucket                      = "terraform-state" # Name of the S3 bucket
-    key                         = "oci.tfstate"  # Name of the tfstate file
+    key                         = "oci.tfstate"     # Name of the tfstate file
     endpoints                   = { s3 = "https://s3.jjsimpson.xyz" }
     region                      = "oci-us-east" # Region validation will be skipped
     skip_credentials_validation = true          # Skip AWS related checks and validations
