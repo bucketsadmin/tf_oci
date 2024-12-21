@@ -25,6 +25,5 @@ provider "oci" {
   fingerprint  = data.onepassword_item.oci_iad_tfuser_fingerprint.password
   tenancy_ocid = data.onepassword_item.oci_iad_tenancy_oid.password
   region       = "us-ashburn-1"
-  private_key  = data.onepassword_item.oci_iad_tfuser_key.password
+  private_key  = data.onepassword_item.oci_iad_tfuser_key.private_key
 }
-
