@@ -1,12 +1,9 @@
 ###############################################################################################
-## data sources
-##
+## DATA SOURCES
 ###############################################################################################
 data "onepassword_vault" "secrets" {
   name = "secrets"
 }
-
-
 
 data "onepassword_item" "oci_iad_tenancy_oid" {
   vault = replace(data.onepassword_vault.secrets.id, "vaults/", "")

@@ -1,5 +1,5 @@
 ###############################################################################################
-## oci terraform provider
+## PROVIDERS
 ## https://registry.terraform.io/providers/oracle/oci/latest/docs
 ###############################################################################################
 
@@ -7,17 +7,17 @@ terraform {
   required_providers {
     oci = {
       source  = "oracle/oci"
-      version = ">= 4.64.0"
+      version = "~> 6.21"
     }
     onepassword = {
       source  = "1password/onepassword"
-      version = ">=1.4.3"
+      version = "~> 2.1"
     }
   }
 }
 
-provider "onepassword" { #pycharm will yell that it's broken, but it works
-
+provider "onepassword" {
+  url = "https://op-api.jjsimpson.xyz"
 }
 
 provider "oci" {

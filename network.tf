@@ -1,14 +1,14 @@
-resource "oci_core_vcn" "default_oci_core_vcn" {
-  cidr_block     = var.oci_core_vcn_cidr
-  compartment_id = data.onepassword_item.oci_iad_tenancy_oid.password
-  display_name   = "oci_jjsimpson_vcn"
+# resource "oci_core_vcn" "default_oci_core_vcn" {
+#   cidr_block     = var.oci_core_vcn_cidr
+#   compartment_id = data.onepassword_item.oci_iad_tenancy_oid.password
+#   display_name   = "oci_jjsimpson_vcn"
 #   dns_label      = var.oci_core_vcn_dns_label
 #   freeform_tags = {
 #     "provisioner"        = "terraform"
 #     "environment"        = var.environment
 #     (var.unique_tag_key) = var.unique_tag_value
 #   }
-}
+# }
 #
 # resource "oci_core_subnet" "default_oci_core_subnet10" {
 #   cidr_block        = var.oci_core_subnet_cidr10
