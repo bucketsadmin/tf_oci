@@ -1,30 +1,30 @@
-# resource "oci_core_vcn" "default_oci_core_vcn" {
-#   cidr_block     = var.oci_core_vcn_cidr
-#   compartment_id = data.onepassword_item.oci_iad_tenancy_oid.password
-#   display_name   = "oci_jjsimpson_vcn"
-#   dns_label      = var.oci_core_vcn_dns_label
-#   freeform_tags = {
-#     "provisioner"        = "terraform"
-#     "environment"        = var.environment
-#     (var.unique_tag_key) = var.unique_tag_value
-#   }
-# }
-#
-# resource "oci_core_subnet" "default_oci_core_subnet10" {
-#   cidr_block        = var.oci_core_subnet_cidr10
-#   compartment_id    = var.compartment_ocid
-#   display_name      = "${var.oci_core_subnet_cidr10} (default) OCI core subnet"
-#   dns_label         = var.oci_core_subnet_dns_label10
-#   route_table_id    = oci_core_vcn.default_oci_core_vcn.default_route_table_id
-#   vcn_id            = oci_core_vcn.default_oci_core_vcn.id
-#   security_list_ids = [oci_core_default_security_list.default_security_list.id]
-#   freeform_tags = {
-#     "provisioner"        = "terraform"
-#     "environment"        = var.environment
-#     (var.unique_tag_key) = var.unique_tag_value
-#   }
-# }
-#
+###############################################################################################
+## NETWORK
+###############################################################################################
+
+resource "oci_core_vcn" "default_oci_core_vcn" {
+  cidr_blocks    = [local.oci_core_vcn_cidr]
+  compartment_id = data.onepassword_item.oci_iad_tenancy_oid.password
+  display_name   = "oci_jjsimpson_vcn"
+  dns_label      = local.domain
+  freeform_tags = {
+    "provisioner" = "terraform"
+  }
+}
+resource "oci_core_subnet" "default_oci_core_subnet_01" {
+  depends_on     = [oci_core_vcn.default_oci_core_vcn]
+  cidr_block     = "10.0.40.0/24"
+  compartment_id = data.onepassword_item.oci_iad_compartment_id.password
+  display_name   = "oci_jjsimpson_vcn (default) OCI core subnet"
+  # dns_label      = "sub_01.${local.domain}"
+  route_table_id = oci_core_vcn.default_oci_core_vcn.default_route_table_id
+  vcn_id         = oci_core_vcn.default_oci_core_vcn.id
+  # security_list_ids = [oci_core_default_security_list.default_security_list.id]
+  freeform_tags = {
+    "provisioner" = "terraform"
+  }
+}
+
 # resource "oci_core_subnet" "oci_core_subnet11" {
 #   cidr_block        = var.oci_core_subnet_cidr11
 #   compartment_id    = var.compartment_ocid
