@@ -8,13 +8,15 @@ locals {
 
   vcn_networks = {
     primary = {
-      name   = ""
-      domain = ""
+      name   = "oci_privnet_vcn"
+      domain = "eastpriv"
+      cidr   = "10.0.40.0/22"
       subnets = {
         sub_01 = {
-          network = cidrsubnet(local.oci_core_vcn_cidr, 8, 0)
-          dns = ""
-          name = ""
+          network = 0
+          dns     = "sub01"
+          name    = "OCI private subnet"
+          public  = true
         }
       }
     }
