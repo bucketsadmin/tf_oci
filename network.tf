@@ -32,26 +32,24 @@ resource "oci_core_subnet" "default_oci_core_subnet" {
     "provisioner" = "terraform"
   }
 }
-resource "oci_core_default_route_table" "default_oci_core_default_route_table" {
-  for_each = {
-    for route in local.vcn_nets : route.route_key => route
-  }
+resource "oci_core_route_table" "default_route_table" {
+  depends_on = [oci_core_nat_gateway.nat_gateway]
   route_rules {
-    description       = each.value.route_name
-    destination       = each.value.route_dest
-    destination_type  = each.value.route_type
-    network_entity_id = each.value.route_gate
+    description       = "default nat gateway route table"
+    destination       = "0.0.0.0/0"
+    destination_type  = "CIDR_BLOCK"
+    network_entity_id = oci_core_nat_gateway.nat_gateway.id
   }
-  manage_default_resource_id = oci_core_vcn.default_oci_core_vcn[each.value.vcn_key].id
+  compartment_id = data.onepassword_item.oci_iad_compartment_id.password
+  vcn_id         = oci_core_vcn.default_oci_core_vcn["primary"].id
 }
 
-resource "oci_core_internet_gateway" "default_oci_core_internet_gateway" {
+resource "oci_core_nat_gateway" "nat_gateway" {
+  depends_on     = [oci_core_vcn.default_oci_core_vcn]
   compartment_id = data.onepassword_item.oci_iad_compartment_id.password
-  display_name   = "Internet Gateway Default OCI core vcn"
-  enabled        = "true"
+  display_name   = "NAT Gateway Default OCI core vcn"
   vcn_id         = oci_core_vcn.default_oci_core_vcn["primary"].id
   freeform_tags = {
     "provisioner" = "terraform"
   }
 }
-

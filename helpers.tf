@@ -15,7 +15,7 @@ locals {
           sub_pub     = subnet.public
           route_name  = routes.name
           route_dest  = routes.dest
-          # route_gate  = routes.gate
+          route_gate  = routes.gate
           route_type  = routes.type
         }
       ]
