@@ -19,6 +19,14 @@ locals {
           public  = true
         }
       }
+      routes = {
+        default = {
+          name = "oci_route_priv"
+          dest = "0.0.0.0/0"
+          # gate = oci_core_internet_gateway.default_oci_core_internet_gateway.id
+          type = "CIDR_BLOCK"
+        }
+      }
     }
   }
 }
